@@ -11,4 +11,12 @@ services:
         value: 3.11
       - key: RENDER
         value: true
+      - key: DJANGO_SECRET_KEY
+        value: REEMPLAZAR_EN_DASHBOARD
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_EMAIL
+        value: admin@example.com
+      - key: ADMIN_PASSWORD
+        value: cambiar123
     staticPublishPath: staticfiles

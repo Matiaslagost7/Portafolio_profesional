@@ -7,19 +7,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0=1h30(pabk3oc4z14j8d@6!$uak35_1g(@ne5g)--=!jme8$-'
-
-
-
+# SECURITY WARNING: never hardcode the production secret key.
+# Use DJANGO_SECRET_KEY en Render (configurada como variable de entorno).
 import os
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'insecure-dev-key')
+
+
+
 import dj_database_url
 
 # Configuración para Render
 DEBUG = os.environ.get('RENDER', '') != 'true'
-ALLOWED_HOSTS = [
-    '*',  # Cambia esto por tu dominio en producción si lo tienes
-]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if render_host:
+    ALLOWED_HOSTS.append(render_host)
+
+# CSRF confianza para Render (https)
+csrf_host = render_host
+if csrf_host:
+    CSRF_TRUSTED_ORIGINS = [f'https://{csrf_host}']
 
 
 # Application definition
