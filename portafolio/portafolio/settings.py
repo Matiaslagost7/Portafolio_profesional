@@ -10,10 +10,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-0=1h30(pabk3oc4z14j8d@6!$uak35_1g(@ne5g)--=!jme8$-'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+
+import os
+import dj_database_url
+
+# Configuración para Render
+DEBUG = os.environ.get('RENDER', '') != 'true'
+ALLOWED_HOSTS = [
+    '*',  # Cambia esto por tu dominio en producción si lo tienes
+]
 
 
 # Application definition
@@ -31,6 +37,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -38,6 +45,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# WhiteNoise: servir archivos estáticos en producción
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'portafolio.urls'
 
@@ -62,12 +71,18 @@ WSGI_APPLICATION = 'portafolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Configuración de base de datos para Render (PostgreSQL si DATABASE_URL está presente)
+if os.environ.get('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -105,12 +120,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 STATIC_URL = '/static/'
-# Carpeta donde Django buscará archivos estáticos adicionales (desarrollo)
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-# Carpeta donde Django recopila los archivos estáticos para producción
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Render necesita STATIC_ROOT y no STATICFILES_DIRS en producción
+if os.environ.get('RENDER', '') == 'true':
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATICFILES_DIRS = []
+else:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static',
+    ]
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media files (uploads)
 MEDIA_URL = '/media/'

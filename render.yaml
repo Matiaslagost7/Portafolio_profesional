@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: portafolio-profesional
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "bash render_start.sh"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: portafolio.settings
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: RENDER
+        value: true
+    staticPublishPath: staticfiles
