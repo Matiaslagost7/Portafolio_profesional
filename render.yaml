@@ -19,4 +19,3 @@ services:
         value: admin@example.com
       - key: ADMIN_PASSWORD
         value: cambiar123
-    staticPublishPath: staticfiles
