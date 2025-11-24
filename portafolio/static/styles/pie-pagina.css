@@ -2,14 +2,17 @@
 .main-footer {
     background-color: var(--footer-bg-color);
     color: var(--footer-text-color);
-    padding: 3rem 0;
-    margin-top: 4rem;
     width: 100%;
+    padding: 0;
+    margin: 0;
     position: relative;
     z-index: 10;
 }
 
 .footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3.5rem 1rem 0.5rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,51 +20,58 @@
 }
 
 .footer-logo {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     font-weight: 800;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     color: var(--white-color);
-    text-decoration: none;
+    letter-spacing: 1px;
 }
-
-.footer-logo span {
+.footer-highlight {
     color: var(--primary-color);
 }
-
 .footer-text {
-    max-width: 500px;
-    margin-bottom: 1.5rem;
-    line-height: 1.7;
-}
-
-.social-links {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 2rem;
-    display: flex;
-    gap: 1rem;
-}
-
-.social-links a {
+    font-size: 1.2rem;
     color: var(--footer-text-color);
-    font-size: 1.5rem;
-    transition: color .3s, transform .3s;
-    display: inline-block;
+    margin-bottom: 2.2rem;
+    max-width: 600px;
+    line-height: 1.6;
 }
-
-.social-links a:hover {
+.footer-social {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+.footer-social a {
+    color: var(--footer-text-color);
+    background: #232323;
+    border-radius: 6px;
+    font-size: 2rem;
+    width: 2.7rem;
+    height: 2.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.footer-social a:hover {
     color: var(--primary-color);
-    transform: translateY(-3px);
+    background: #181818;
+    transform: translateY(-2px) scale(1.08);
 }
-
-.footer-bottom {
+.footer-divider {
+    width: 90%;
+    border: none;
     border-top: 1px solid var(--footer-border-color);
-    padding-top: 1.5rem;
-    margin-top: 2rem;
-    width: 100%;
-    font-size: .9rem;
+    margin: 0 auto 1.5rem auto;
 }
-
+.footer-bottom {
+    width: 100%;
+    text-align: right;
+    font-size: 1rem;
+    color: var(--footer-text-color);
+    padding-bottom: 1.2rem;
+    padding-right: 2.5rem;
+}
 .footer-bottom p {
     margin: 0;
 }
