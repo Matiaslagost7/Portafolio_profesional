@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Eliminar Habilidad - Admin{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-danger shadow">
+            <div class="card-header bg-danger text-white">
+                <h3 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Confirmar Eliminación de Habilidad
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <strong>¡Atención!</strong> Esta acción es irreversible.
+                </div>
+
+                <div class="text-center mb-4">
+                    <i class="fas fa-cog text-danger" style="font-size: 4rem;"></i>
+                </div>
+
+                <p class="text-center fs-5">
+                    ¿Estás seguro de que deseas eliminar permanentemente la habilidad:
+                </p>
+                
+                <div class="alert alert-light text-center">
+                    <strong class="text-danger fs-4">"{{ objeto.nombre }}"</strong>
+                </div>
+
+                {% if objeto.proyectos.all %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Nota:</strong> Esta habilidad está asociada con 
+                    <strong>{{ objeto.proyectos.count }}</strong> 
+                    proyecto{{ objeto.proyectos.count|pluralize }}:
+                    <ul class="mb-0 mt-2 list-group list-group-flush">
+                        {% for proyecto in objeto.proyectos.all %}
+                            <li class="list-group-item list-group-item-info">
+                                <a href="{% url 'editar_proyecto' proyecto.pk %}" class="text-decoration-none">
+                                    {{ proyecto.titulo }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <small class="text-muted d-block mt-2">
+                        Al eliminar esta habilidad, se desvinculará de todos los proyectos asociados.
+                    </small>
+                </div>
+                {% else %}
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>Buena noticia:</strong> Esta habilidad no está asociada a ningún proyecto.
+                </div>
+                {% endif %}
+
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="fas fa-trash me-2"></i>
+                            Confirmar Eliminación
+                        </button>
+                        <a href="{% url 'lista_habilidades_admin' %}" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

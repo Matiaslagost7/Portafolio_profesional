@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Proyectos - Admin{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h3 fw-bold text-primary">
+        <i class="fas fa-project-diagram me-2"></i>
+        Gestión de Proyectos
+    </h2>
+    <a href="{% url 'crear_proyecto_admin' %}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>
+        Nuevo Proyecto
+    </a>
+</div>
+
+{% if proyectos %}
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-list me-2"></i>
+                Lista de Proyectos ({{ proyectos.count }})
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Habilidades</th>
+                            <th>Enlaces</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for proyecto in proyectos %}
+                        <tr>
+                            <td>{{ proyecto.id }}</td>
+                            <td>
+                                {% if proyecto.imagen %}
+                                    <img src="{{ proyecto.imagen.url }}" 
+                                         alt="{{ proyecto.titulo }}"
+                                         class="img-thumbnail"
+                                         style="width: 60px; height: 60px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-light d-flex align-items-center justify-content-center" 
+                                         style="width: 60px; height: 60px;">
+                                        <i class="fas fa-image text-muted"></i>
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <strong class="text-dark">{{ proyecto.titulo }}</strong>
+                            </td>
+                            <td>
+                                <small class="text-muted">
+                                    {{ proyecto.descripcion|truncatewords:8 }}
+                                </small>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-1">
+                                    {% for habilidad in proyecto.habilidades.all|slice:":3" %}
+                                        <span class="badge {% if habilidad.tipo == 'tecnica' %}bg-primary{% else %}bg-success{% endif %} text-white">
+                                            {{ habilidad.nombre }}
+                                        </span>
+                                    {% endfor %}
+                                    {% if proyecto.habilidades.count > 3 %}
+                                        <span class="badge bg-secondary">+{{ proyecto.habilidades.count|add:"-3" }}</span>
+                                    {% endif %}
+                                </div>
+                                {% if not proyecto.habilidades.all %}
+                                    <small class="text-muted"><em>Sin habilidades</em></small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group-vertical btn-group-sm" role="group">
+                                    {% if proyecto.demo_url %}
+                                        <a href="{{ proyecto.demo_url }}" 
+                                           target="_blank" 
+                                           class="btn btn-outline-info btn-sm"
+                                           title="Ver Demo">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if proyecto.repo_url %}
+                                        <a href="{{ proyecto.repo_url }}" 
+                                           target="_blank" 
+                                           class="btn btn-outline-dark btn-sm"
+                                           title="Ver Código">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if not proyecto.demo_url and not proyecto.repo_url %}
+                                        <small class="text-muted">N/A</small>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <small class="text-muted">
+                                    {{ proyecto.fecha_publicacion|date:"d/m/Y" }}<br>
+                                    {{ proyecto.fecha_publicacion|date:"H:i" }}
+                                </small>
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="{% url 'editar_proyecto' proyecto.pk %}" 
+                                       class="btn btn-outline-warning" 
+                                       title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'eliminar_proyecto' proyecto.pk %}" 
+                                       class="btn btn-outline-danger" 
+                                       title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card bg-light text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Proyectos</h5>
+                    <h2 class="text-primary">{{ proyectos.count }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Con Demo</h5>
+                    <h2 class="text-info">
+                        {% comment %}Contar proyectos con demo_url{% endcomment %}
+                        {{ proyectos|length }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Con Repositorio</h5>
+                    <h2 class="text-dark">
+                        {% comment %}Contar proyectos con repo_url{% endcomment %}
+                        {{ proyectos|length }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Con Imagen</h5>
+                    <h2 class="text-success">
+                        {% comment %}Contar proyectos con imagen{% endcomment %}
+                        {{ proyectos|length }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    <div class="card">
+        <div class="card-body text-center py-5">
+            <i class="fas fa-project-diagram text-muted" style="font-size: 4rem;"></i>
+            <h3 class="text-muted mt-3">No hay proyectos registrados</h3>
+            <p class="text-muted">Comienza creando tu primer proyecto.</p>
+            <a href="{% url 'crear_proyecto_admin' %}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>
+                Crear Primer Proyecto
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}

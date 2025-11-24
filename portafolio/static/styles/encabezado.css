@@ -1,0 +1,338 @@
+/* ========================================
+   NAVBAR - BARRA DE NAVEGACIÓN
+   ======================================== */
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.75rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-color) !important;
+}
+
+/* Menú de navegación */
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: #555 !important;
+    margin: 0 0.5rem;
+    padding: 0.5rem 0 !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Controles de usuario */
+.navbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+}
+
+.user-greeting {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.navbar-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.navbar-buttons .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.navbar-buttons .btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+}
+
+.navbar-buttons .btn-primary:hover {
+    background-color: var(--primary-dark-color);
+    color: white;
+}
+
+.navbar-buttons .btn-outline-primary {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+}
+
+.navbar-buttons .btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.navbar-buttons .btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: #333;
+}
+
+.navbar-buttons .btn-warning:hover {
+    background-color: #ff9800;
+    color: white;
+}
+
+.navbar-buttons .btn-outline-danger {
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    background: transparent;
+}
+
+.navbar-buttons .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Iconos sociales */
+.social-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid #e0e0e0;
+}
+
+.social-nav .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #e0e0e0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-nav .social-link .social-svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--primary-color);
+}
+
+.social-nav .social-link:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.social-nav .social-link:hover .social-svg {
+    fill: white;
+}
+
+
+/* ========================================
+   RESPONSIVE - MOBILE (MAX 991px)
+   ======================================== */
+@media (max-width: 991.98px) {
+    .navbar {
+        padding: 0.5rem 0;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .navbar-nav {
+        margin-top: 1rem;
+        border-top: 1px solid #ddd;
+        padding-top: 1rem;
+    }
+
+    .navbar-nav .nav-link {
+        margin: 0;
+        padding: 0.5rem 0 !important;
+        font-size: 0.95rem;
+    }
+
+    .navbar-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        margin-left: 0;
+        border-top: 1px solid #ddd;
+        padding-top: 1rem;
+        margin-top: 1rem;
+    }
+
+    .user-greeting {
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-buttons .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.6rem 1rem;
+    }
+
+    .social-nav {
+        border-left: none;
+        border-top: 1px solid #ddd;
+        padding-left: 0;
+        padding-top: 1rem;
+        margin-left: 0;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    .social-nav .social-link {
+        width: 40px;
+        height: 40px;
+    }
+
+    .social-nav .social-link .social-svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - TABLET (992px - 1199px)
+   ======================================== */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .navbar-brand {
+        font-size: 1.15rem;
+    }
+
+    .navbar-nav .nav-link {
+        margin: 0 0.3rem;
+        font-size: 0.9rem;
+    }
+
+    .user-greeting {
+        font-size: 0.8rem;
+    }
+
+    .navbar-buttons {
+        gap: 0.4rem;
+    }
+
+    .navbar-buttons .btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    .navbar-controls {
+        gap: 0.7rem;
+    }
+
+    .social-nav {
+        margin-left: 0.7rem;
+        padding-left: 0.7rem;
+        gap: 0.4rem;
+    }
+
+    .social-nav .social-link {
+        width: 32px;
+        height: 32px;
+    }
+
+    .social-nav .social-link .social-svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - DESKTOP (1200px+)
+   ======================================== */
+@media (min-width: 1200px) {
+    .navbar-controls {
+        flex-direction: row;
+        margin-left: auto;
+    }
+
+    .navbar-buttons {
+        flex-direction: row;
+    }
+
+    .navbar-buttons .btn {
+        width: auto;
+    }
+}
+
+/* ===== NOTIFICACIONES (TOASTS) ===== */
+.toast-notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1050;
+    min-width: 300px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideIn 0.3s ease-out;
+}
+
+.toast-notification.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.toast-notification.danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.toast-notification.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.toast-notification.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.toast-notification.hide {
+    animation: slideOut 0.3s ease-out forwards;
+}

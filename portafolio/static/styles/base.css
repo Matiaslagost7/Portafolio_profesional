@@ -1,0 +1,110 @@
+/* ========================================
+   ESTILOS BASE - ENFOQUE MOBILE FIRST
+   ========================================
+   Reset de estilos y configuración global
+   ======================================== */
+
+:root {
+    --primary-color: #007bff;
+    --primary-dark-color: #0056b3;
+    --primary-gradient: linear-gradient(135deg, #0062cc, #004085);
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --light-bg-color: #f8f9fa;
+    --white-color: #ffffff;
+    --dark-text-color: #333;
+    --body-bg-color: #f8f9fa;
+    --card-bg-color: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-color-light: rgba(0, 0, 0, 0.1);
+    --shadow-color-primary: rgba(0, 123, 255, 0.3);
+    --main-font: 'Montserrat', sans-serif;
+    /* Nuevas variables agregadas tras la refactorización */
+    --footer-bg-color: #1a1a1a;
+    --footer-text-color: #ccc;
+    --footer-border-color: #333;
+    --tag-bg-color: #e7f3ff;
+    --input-bg-color: #f8f9fa;
+    --shadow-color-dark: rgba(0,0,0,0.15);
+    --light-text-color: #666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Incluye padding y border en el ancho/alto */
+}
+
+body {
+    font-family: var(--main-font); /* Fuente personalizada */
+    background-color: var(--body-bg-color); /* Gris claro */
+    color: var(--dark-text-color); /* Texto oscuro */
+    line-height: 1.6; /* Espaciado de líneas legible */
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+html { scroll-behavior:smooth; }
+
+/* ===== SECTIONS ===== */
+section {
+    padding: 60px 20px !important;
+}
+section { scroll-margin-top:80px; }
+
+section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+/* ===== ESTILOS DE FORMULARIOS Y VALIDACIÓN ===== */
+.form-control {
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control.is-invalid {
+    border-color: var(--danger-color);
+}
+
+.invalid-feedback {
+    color: var(--danger-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* ===== ALERTAS ===== */
+.alert {
+    border-radius: 0.375rem;
+    border: none;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid var(--success-color);
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid var(--danger-color);
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-left: 4px solid #ffc107;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-left: 4px solid #17a2b8;
+}

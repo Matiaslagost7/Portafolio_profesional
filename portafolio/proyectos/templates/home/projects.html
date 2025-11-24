@@ -1,0 +1,81 @@
+<!-- ========== SECCIÓN DE PROYECTOS ========== -->
+<section id="projects" class="py-5 bg-white">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h2 class="mb-0">Proyectos</h2>
+            {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'crear_proyecto_admin' %}" class="btn btn-success btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: text-bottom; margin-right: 5px;">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Agregar Proyecto
+            </a>
+            {% endif %}
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for proyecto in proyectos %}
+            <!-- Tarjeta de proyecto -->
+            <div class="col d-flex">
+                <div class="project-card card h-100 w-100 shadow-sm border-0" style="position: relative;">
+                    {% if proyecto.imagen %}
+                    <img src="/media/{{ proyecto.imagen }}" alt="{{ proyecto.titulo }}" class="card-img-top" loading="lazy" style="object-fit:cover; height:180px;">
+                    {% else %}
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 180px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">
+                        📌
+                    </div>
+                    {% endif %}
+                    {% if user.is_authenticated and user.is_superuser %}
+                    <div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 5px;">
+                        <a href="{% url 'editar_proyecto' proyecto.pk %}" class="btn btn-sm btn-warning" title="Editar">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </a>
+                        <a href="{% url 'eliminar_proyecto' proyecto.pk %}" class="btn btn-sm btn-danger" title="Eliminar">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ proyecto.titulo }}</h5>
+                        <p class="card-text mb-3">{{ proyecto.descripcion }}</p>
+                        
+                        <!-- Habilidades -->
+                        {% if proyecto.habilidades.all %}
+                        <p class="card-text mb-3">
+                            <strong>Tecnologías:</strong>
+                            {% for habilidad in proyecto.habilidades.all %}
+                            <span class="badge bg-primary">{{ habilidad.nombre }}</span>
+                            {% endfor %}
+                        </p>
+                        {% endif %}
+                        
+                        <!-- Acciones -->
+                        <div class="d-flex gap-2 mt-auto">
+                            {% if proyecto.demo_url %}
+                            <a href="{{ proyecto.demo_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary flex-fill d-flex align-items-center justify-content-center">
+                                Ver Proyecto
+                            </a>
+                            {% endif %}
+                            {% if proyecto.repo_url %}
+                            <a href="{{ proyecto.repo_url }}" target="_blank" class="btn btn-outline-secondary flex-fill d-flex align-items-center justify-content-center" aria-label="Ver código en GitHub">
+                                Código
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center text-muted">No hay proyectos registrados aún.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

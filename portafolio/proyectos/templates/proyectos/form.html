@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }} - Admin{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">
+                    <i class="fas fa-project-diagram me-2"></i>
+                    {{ titulo }}
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong><i class="fas fa-exclamation-triangle me-2"></i>Error:</strong>
+                            <ul class="mb-0">
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.titulo.id_for_label }}" class="form-label fw-bold">
+                                    <i class="fas fa-heading me-2"></i>Título del Proyecto
+                                </label>
+                                {{ form.titulo }}
+                                {% if form.titulo.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.titulo.errors %}
+                                            <small class="text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">
+                                    Nombre descriptivo del proyecto
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.imagen.id_for_label }}" class="form-label fw-bold">
+                                    <i class="fas fa-image me-2"></i>Imagen del Proyecto
+                                </label>
+                                {{ form.imagen }}
+                                {% if form.imagen.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.imagen.errors %}
+                                            <small class="text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if proyecto and proyecto.imagen %}
+                                    <div class="mt-2">
+                                        <small class="text-success">
+                                            <i class="fas fa-check me-1"></i>
+                                            Archivo actual: 
+                                            <a href="{{ proyecto.imagen.url }}" target="_blank" class="text-decoration-none">
+                                                Ver imagen
+                                            </a>
+                                        </small>
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">
+                                    Imagen representativa del proyecto (JPG, PNG, WEBP)
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.descripcion.id_for_label }}" class="form-label fw-bold">
+                            <i class="fas fa-align-left me-2"></i>Descripción del Proyecto
+                        </label>
+                        {{ form.descripcion }}
+                        {% if form.descripcion.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.descripcion.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <small class="form-text text-muted">
+                            Descripción detallada del proyecto, sus objetivos y características principales
+                        </small>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.demo_url.id_for_label }}" class="form-label fw-bold">
+                                    <i class="fas fa-external-link-alt me-2"></i>URL de Demostración
+                                </label>
+                                {{ form.demo_url }}
+                                {% if form.demo_url.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.demo_url.errors %}
+                                            <small class="text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">
+                                    Enlace al proyecto en vivo (opcional)
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.repo_url.id_for_label }}" class="form-label fw-bold">
+                                    <i class="fab fa-github me-2"></i>URL del Repositorio
+                                </label>
+                                {{ form.repo_url }}
+                                {% if form.repo_url.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.repo_url.errors %}
+                                            <small class="text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="form-text text-muted">
+                                    Enlace al código fuente (GitHub, GitLab, etc.) - opcional
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="{{ form.habilidades.id_for_label }}" class="form-label fw-bold">
+                            <i class="fas fa-cogs me-2"></i>Habilidades y Tecnologías Utilizadas
+                        </label>
+                        <div class="border rounded p-3 bg-light">
+                            {{ form.habilidades }}
+                        </div>
+                        {% if form.habilidades.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.habilidades.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <small class="form-text text-muted">
+                            Selecciona las habilidades técnicas y blandas que aplicaste en este proyecto
+                        </small>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'lista_proyectos_admin' %}" class="btn btn-secondary me-md-2">
+                            <i class="fas fa-times me-2"></i>
+                            Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>
+                            {% if proyecto %}Actualizar{% else %}Crear{% endif %} Proyecto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if proyecto %}
+        <div class="card mt-4 border-info">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Información Actual del Proyecto
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row mb-2">
+                            <div class="col-sm-4"><strong>ID:</strong></div>
+                            <div class="col-sm-8">{{ proyecto.id }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-4"><strong>Título:</strong></div>
+                            <div class="col-sm-8">{{ proyecto.titulo }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-4"><strong>Fecha de creación:</strong></div>
+                            <div class="col-sm-8">{{ proyecto.fecha_publicacion|date:"d/m/Y H:i" }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-4"><strong>Habilidades:</strong></div>
+                            <div class="col-sm-8">
+                                {% for habilidad in proyecto.habilidades.all %}
+                                    <span class="badge {% if habilidad.tipo == 'tecnica' %}bg-primary{% else %}bg-success{% endif %} me-1">
+                                        {{ habilidad.nombre }}
+                                    </span>
+                                {% empty %}
+                                    <em class="text-muted">Sin habilidades asignadas</em>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-4"><strong>Enlaces:</strong></div>
+                            <div class="col-sm-8">
+                                {% if proyecto.demo_url %}
+                                    <a href="{{ proyecto.demo_url }}" target="_blank" class="btn btn-sm btn-outline-info me-2">
+                                        <i class="fas fa-external-link-alt me-1"></i>Demo
+                                    </a>
+                                {% endif %}
+                                {% if proyecto.repo_url %}
+                                    <a href="{{ proyecto.repo_url }}" target="_blank" class="btn btn-sm btn-outline-dark">
+                                        <i class="fab fa-github me-1"></i>Repositorio
+                                    </a>
+                                {% endif %}
+                                {% if not proyecto.demo_url and not proyecto.repo_url %}
+                                    <em class="text-muted">Sin enlaces configurados</em>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        {% if proyecto.imagen %}
+                            <img src="{{ proyecto.imagen.url }}" 
+                                 alt="{{ proyecto.titulo }}" 
+                                 class="img-fluid rounded shadow-sm">
+                        {% else %}
+                            <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                                 style="height: 150px;">
+                                <i class="fas fa-image text-muted fs-1"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Panel de Administración{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-5">
+                <h1 class="h2 fw-bold text-primary mb-3">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Panel de Administración
+                </h1>
+                <p class="text-muted">Bienvenido, {{ user.first_name|default:user.username }}. Desde aquí puedes gestionar todo el contenido de tu portafolio.</p>
+            </div>
+
+            <!-- Estadísticas Principales -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="text-muted mb-2">
+                                        <i class="fas fa-project-diagram text-primary me-2"></i>
+                                        Total de Proyectos
+                                    </h6>
+                                    <h2 class="text-primary fw-bold">{{ total_proyectos }}</h2>
+                                </div>
+                                <span class="badge bg-primary fs-6">
+                                    <i class="fas fa-arrow-up"></i>
+                                </span>
+                            </div>
+                            <a href="{% url 'lista_proyectos_admin' %}" class="btn btn-primary btn-sm mt-3">
+                                <i class="fas fa-list me-2"></i>
+                                Ver todos los proyectos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="text-muted mb-2">
+                                        <i class="fas fa-cogs text-success me-2"></i>
+                                        Total de Habilidades
+                                    </h6>
+                                    <h2 class="text-success fw-bold">{{ total_habilidades }}</h2>
+                                </div>
+                                <span class="badge bg-success fs-6">
+                                    <i class="fas fa-arrow-up"></i>
+                                </span>
+                            </div>
+                            <a href="{% url 'lista_habilidades_admin' %}" class="btn btn-success btn-sm mt-3">
+                                <i class="fas fa-list me-2"></i>
+                                Ver todas las habilidades
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acciones Rápidas -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light border-bottom">
+                            <h5 class="mb-0">
+                                <i class="fas fa-bolt text-warning me-2"></i>
+                                Acciones Rápidas
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a href="{% url 'crear_proyecto_admin' %}" class="btn btn-outline-primary w-100">
+                                        <i class="fas fa-plus me-2"></i>
+                                        Crear Nuevo Proyecto
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="{% url 'crear_habilidad' %}" class="btn btn-outline-success w-100">
+                                        <i class="fas fa-plus me-2"></i>
+                                        Crear Nueva Habilidad
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="{% url 'lista_proyectos_admin' %}" class="btn btn-outline-info w-100">
+                                        <i class="fas fa-eye me-2"></i>
+                                        Gestionar Proyectos
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="{% url 'lista_habilidades_admin' %}" class="btn btn-outline-warning w-100">
+                                        <i class="fas fa-eye me-2"></i>
+                                        Gestionar Habilidades
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información de Ayuda -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-info border-0" role="alert">
+                        <h5 class="alert-heading">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            ¿Qué puedes hacer aquí?
+                        </h5>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        <strong>Proyectos:</strong> Crear, editar, eliminar y ver todos tus proyectos
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        <strong>Habilidades:</strong> Gestionar habilidades técnicas y blandas
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        <strong>Asociaciones:</strong> Vincular habilidades a proyectos
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        <strong>Imágenes:</strong> Subir y administrar imágenes de proyectos
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
