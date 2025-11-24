@@ -159,9 +159,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-STATIC_URL = '/static/'
+
+STATIC_URL = 'static/'
+
+# Directorio donde collectstatic reunirá los archivos estáticos para producción.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# Directorios adicionales para buscar archivos estáticos.
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Media files (uploads)
 MEDIA_URL = '/media/'
