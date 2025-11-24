@@ -4,6 +4,9 @@
     color: var(--footer-text-color);
     padding: 3rem 0;
     margin-top: 4rem;
+    width: 100%;
+    position: relative;
+    z-index: 10;
 }
 
 .footer-content {

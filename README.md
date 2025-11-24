@@ -1,103 +1,10 @@
-﻿#  Portafolio Profesional - Matías Lagos T.
+﻿# Portafolio
 
-> Plataforma web interactiva desarrollada con **Django**, **Python** y **CSS moderno**. Portafolio profesional completo con sistema de gestión de contenido integrado.
+Django • Python • SQLite
 
-[![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![Django](https://img.shields.io/badge/Django-5.2.8-darkgreen?logo=django&logoColor=white)](https://www.djangoproject.com/)
-[![SQLite](https://img.shields.io/badge/SQLite-Database-lightblue?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-
----
-
-##  Descripción General
-
-Portafolio profesional full-stack desarrollado durante mi formación en desarrollo web. Sistema completo que permite gestionar y mostrar proyectos, habilidades y competencias profesionales sin necesidad de modificar código. Implementa buenas prácticas de seguridad, accesibilidad y rendimiento.
-
-###  Características Principales
-
-- ** Autenticación y Autorización:** Sistema seguro de login/register con sesiones de usuario
-- ** Diseño Responsivo:** Mobile-first, optimizado para todos los dispositivos
-- ** Interfaz Moderna:** Diseño profesional y visualmente atractivo
-- ** Base de Datos:** Modelos relacionales con Django ORM
-- ** Gestión Dinámica:** Agregar, editar y eliminar proyectos sin código
-- ** Panel Administrativo:** Interfaz dedicada para administración de contenido
-- ** Optimización:** Imágenes WebP, CSS modular, JavaScript optimizado
-- ** Accesibilidad:** WCAG 2.1 compliant
-
----
-
-##  Stack Tecnológico
-
-### Backend
-- **Framework:** Django 5.2.8
-- **Lenguaje:** Python 3.x
-- **Base de Datos:** SQLite
-- **ORM:** Django ORM
-- **Autenticación:** Django Auth
-
-### Frontend
-- **Markup:** HTML5 semántico
-- **Estilos:** CSS3 personalizado y modular
-- **Interactividad:** JavaScript vanilla
-- **Imágenes:** WebP optimizado
-- **Responsividad:** Media queries estratégicas
-
-### Herramientas & DevOps
-- **Control de Versiones:** Git & GitHub
-- **Gestor de Dependencias:** pip
-- **Diseño UI/UX:** Figma
-- **Entorno Virtual:** venv
-
----
-
-##  Estructura del Proyecto
-
-\\\
-portafolio/
-
- manage.py                      # Gestor de comandos Django
- db.sqlite3                     # Base de datos SQLite
- LICENSE                        # Licencia del proyecto
- README.md                      # Este archivo
-
- portafolio/                    # Configuración principal del proyecto
-    settings.py               # Configuración de Django
-    urls.py                   # Rutas principales del proyecto
-    wsgi.py                   # Configuración WSGI para producción
-    asgi.py                   # Configuración ASGI
-    __pycache__/              # Caché de Python
-
- login/                         # App: Autenticación de usuarios
-    models.py                 # Modelos (extiende User de Django)
-    views.py                  # Vistas (login, register, logout)
-    forms.py                  # Formularios personalizados
-    urls.py                   # Rutas de autenticación
-    admin.py                  # Configuración admin
-    migrations/               # Migraciones de base de datos
-    templates/
-       login.html            # Página de login
-       register.html         # Página de registro
-       logout.html           # Confirmación de logout
-    __pycache__/              # Caché de Python
-
- proyectos/                     # App: Portafolio (módulo principal)
-    models.py                 # Modelos: Proyecto, Habilidad
-    views.py                  # Vistas del portafolio y panel admin
-    forms.py                  # Formularios de gestión
-    admin.py                  # Configuración admin de Django
-    urls.py                   # Rutas del portafolio
-    apps.py                   # Configuración de la app
-    migrations/               # Migraciones de BD
-    templates/
-       base.html             # Plantilla base (layout general)
-       home.html             # Página principal
-       panel_admin.html      # Panel administrativo
-       habilidades/          # Templates dinámicas de habilidades
-       proyectos/            # Templates dinámicas de proyectos
-       home/                 # Templates de secciones del home
-    __pycache__/              # Caché de Python
-
- static/                        # Archivos estáticos servidos por el servidor
+```bash
+python manage.py runserver
+```
     styles/                   # Hojas de estilos CSS
        base.css              # Estilos base globales
        heroe.css             # Sección hero
