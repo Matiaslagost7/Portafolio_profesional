@@ -66,11 +66,11 @@
 }
 .footer-bottom {
     width: 100%;
-    text-align: right;
+    text-align: center;
     font-size: 1rem;
     color: var(--footer-text-color);
     padding-bottom: 1.2rem;
-    padding-right: 2.5rem;
+    padding-right: 0;
 }
 .footer-bottom p {
     margin: 0;
