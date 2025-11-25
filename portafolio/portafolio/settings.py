@@ -163,7 +163,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Directorio donde collectstatic reunirá los archivos estáticos para producción.
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR.parent / 'staticfiles'
 
 # Directorios adicionales para buscar archivos estáticos.
 STATICFILES_DIRS = [

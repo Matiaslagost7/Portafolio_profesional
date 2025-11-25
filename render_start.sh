@@ -11,9 +11,9 @@ python manage.py migrate --noinput || {
     exit 1
 }
 
-# Recolectar archivos estáticos
+# Recolectar archivos estáticos (limpiando el destino primero)
 echo "Recolectando archivos estáticos..."
-python manage.py collectstatic --noinput || {
+python manage.py collectstatic --noinput --clear || {
     echo "❌ Error al recolectar estáticos"
     exit 1
 }
