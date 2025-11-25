@@ -184,7 +184,7 @@ STATICFILES_DIRS = [
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'portafolio_profesional'
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR.parent, 'rich-boulevard-479315-q7-8a799ab643ac.json')
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
 )
 MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
 
