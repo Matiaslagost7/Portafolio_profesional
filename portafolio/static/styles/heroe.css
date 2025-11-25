@@ -41,18 +41,38 @@
 /* ========== BADGE DE ESTADO ========== */
 /* Badge verde que indica "Disponible para proyectos" */
 .hero-status {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: var(--success-color);
-    padding: 6px 12px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: var(--success-color);
+        padding: 6px 12px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        transition: all 0.3s;
+}
+
+@media (max-width: 575.98px) {
+    .hero-image-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+    .hero-status {
+        position: static;
+        margin-top: 12px;
+        margin-bottom: 0;
+        right: auto;
+        left: auto;
+        bottom: auto;
+        width: max-content;
+        align-self: center;
+    }
 }
 
 .status-dot {
