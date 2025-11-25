@@ -83,6 +83,10 @@ MIDDLEWARE = [
 
 # WhiteNoise: servir archivos estáticos en producción
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "LOCATION": str(BASE_DIR / "media"),
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
