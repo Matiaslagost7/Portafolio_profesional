@@ -1,3 +1,5 @@
+import logging
+logger = logging.getLogger(__name__)
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import HttpResponseForbidden
@@ -136,6 +138,7 @@ def crear_proyecto_admin(request):
     
     if request.method == "POST":
         form = ProyectoForm(request.POST, request.FILES)
+        logger.info(f"Archivos recibidos en crear_proyecto_admin: {request.FILES}")
         if form.is_valid():
             form.save()
             messages.success(request, "¡Proyecto creado exitosamente!")
@@ -156,6 +159,7 @@ def editar_proyecto(request, pk):
     
     if request.method == "POST":
         form = ProyectoForm(request.POST, request.FILES, instance=proyecto)
+        logger.info(f"Archivos recibidos en editar_proyecto: {request.FILES}")
         if form.is_valid():
             form.save()
             messages.success(request, "¡Proyecto actualizado exitosamente!")

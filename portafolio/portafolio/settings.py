@@ -1,3 +1,5 @@
+# Permitir archivos de hasta 10MB en formularios
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
 
 from pathlib import Path
 import logging
