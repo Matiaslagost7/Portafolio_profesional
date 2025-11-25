@@ -183,9 +183,11 @@ STATICFILES_DIRS = [
 # Google Cloud Storage para archivos media
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'portafolio_profesional'
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
-)
+GS_CREDENTIALS_PATH = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+if GS_CREDENTIALS_PATH:
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(GS_CREDENTIALS_PATH)
+else:
+    GS_CREDENTIALS = None  # O lanza un error personalizado si es obligatorio
 MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
 
 # Default primary key field type
