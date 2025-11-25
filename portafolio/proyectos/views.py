@@ -140,9 +140,16 @@ def crear_proyecto_admin(request):
         form = ProyectoForm(request.POST, request.FILES)
         logger.info(f"Archivos recibidos en crear_proyecto_admin: {request.FILES}")
         if form.is_valid():
-            form.save()
-            messages.success(request, "¡Proyecto creado exitosamente!")
-            return redirect("lista_proyectos_admin")
+            try:
+                proyecto = form.save()
+                logger.info(f"Proyecto guardado correctamente: {proyecto}")
+                messages.success(request, "¡Proyecto creado exitosamente!")
+                return redirect("lista_proyectos_admin")
+            except Exception as e:
+                logger.error(f"Error al guardar el proyecto: {e}")
+                messages.error(request, f"Error al guardar el proyecto: {e}")
+        else:
+            logger.warning(f"Formulario inválido: {form.errors}")
     else:
         form = ProyectoForm()
     
@@ -161,9 +168,16 @@ def editar_proyecto(request, pk):
         form = ProyectoForm(request.POST, request.FILES, instance=proyecto)
         logger.info(f"Archivos recibidos en editar_proyecto: {request.FILES}")
         if form.is_valid():
-            form.save()
-            messages.success(request, "¡Proyecto actualizado exitosamente!")
-            return redirect("lista_proyectos_admin")
+            try:
+                proyecto = form.save()
+                logger.info(f"Proyecto actualizado correctamente: {proyecto}")
+                messages.success(request, "¡Proyecto actualizado exitosamente!")
+                return redirect("lista_proyectos_admin")
+            except Exception as e:
+                logger.error(f"Error al actualizar el proyecto: {e}")
+                messages.error(request, f"Error al actualizar el proyecto: {e}")
+        else:
+            logger.warning(f"Formulario inválido: {form.errors}")
     else:
         form = ProyectoForm(instance=proyecto)
     

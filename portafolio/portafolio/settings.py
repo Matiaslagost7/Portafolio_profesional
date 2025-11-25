@@ -14,6 +14,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -173,14 +174,18 @@ STATICFILES_DIRS = [
 
 # Media files (uploads)
 
+
 # Google Cloud Storage para archivos media
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 GS_BUCKET_NAME = 'portafolio_profesional'
-GS_CREDENTIALS_PATH = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
-if GS_CREDENTIALS_PATH:
-    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(GS_CREDENTIALS_PATH)
-else:
-    GS_CREDENTIALS = None  # O lanza un error personalizado si es obligatorio
+GS_PROJECT_ID = 'rich-boulevard-479315-q7'
 MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
 
 # Default primary key field type

@@ -33,3 +33,16 @@ class Proyecto(models.Model):
         ordering = ['fecha_publicacion']
     def __str__(self):
         return str(self.titulo)
+
+    def save(self, *args, **kwargs):
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"[Proyecto.save] Guardando proyecto: {self.titulo}")
+        if self.imagen:
+            logger.info(f"[Proyecto.save] Imagen a guardar: {self.imagen.name}")
+        try:
+            super().save(*args, **kwargs)
+            logger.info(f"[Proyecto.save] Proyecto guardado correctamente: {self.titulo}")
+        except Exception as e:
+            logger.error(f"[Proyecto.save] Error al guardar el proyecto o la imagen: {e}")
+            raise
