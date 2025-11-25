@@ -1,5 +1,8 @@
+
 from pathlib import Path
 import logging
+from google.oauth2 import service_account
+import os
 
 # Configurar logging básico
 logging.basicConfig(
@@ -68,6 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login',
     'proyectos',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -175,8 +179,14 @@ STATICFILES_DIRS = [
 ]
 
 # Media files (uploads)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
+# Google Cloud Storage para archivos media
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'portafolio_profesional'
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR.parent, 'rich-boulevard-479315-q7-8a799ab643ac.json')
+)
+MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
